@@ -30,7 +30,7 @@ WHERE id_espece IN (
     AND el.nom_element = 'eau'
 )
 AND id_pokemon NOT IN (
-    SELECT id_pokemon 
+    SELECT p.id_pokemon 
     FROM Possede p, Attaque a, Element el
     WHERE a.id_element = el.id_element
     AND p.id_attaque = a.id_attaque
@@ -76,9 +76,6 @@ WHERE NOT EXISTS (
 -- Aggregation --------------------------
 
 -- 6/ Nombre de combats dans l'arène ARGENTA
-
-
--- Imbrications --------------------------
 
 
 -- Jointures --------------------------

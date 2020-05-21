@@ -50,8 +50,8 @@ CREATE TABLE `Element`
 (
     `id_element`     INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `nom_element`    VARCHAR(20) NOT NULL,
-    `id_elem_faible`    INT         NOT NULL,
-    `id_elem_resistant` INT         NOT NULL
+    `id_elem_faible`    INT      NULL,
+    `id_elem_resistant` INT      NULL
 );
 
 DROP TABLE IF EXISTS `Attaque`;

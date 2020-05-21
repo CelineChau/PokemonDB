@@ -67,7 +67,8 @@ DROP TABLE IF EXISTS `Combat`;
 CREATE TABLE `Combat`
 (
     `id_combat`      INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `id_competition` INT NULL
+    `id_competition` INT NOT NULL,
+    `date_combat` 	INT NULL
 );
 
 DROP TABLE IF EXISTS `Pokemon`;

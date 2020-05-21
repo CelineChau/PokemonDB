@@ -47,7 +47,7 @@
                "dresseur2":"Ondine",
                "pokemon1":"Star",
                "pokemon2":"LeBG",
-               "date":"2020-05-05"
+               "date":"2020-05-09"
             }
          ]
       },
@@ -97,19 +97,12 @@
 //           <pokemon2>LeBG</pokemon2>
 //           <date>2020-05-05</date>
 //         </combat>
-//         <combat>
-//           <dresseur1>MKD</dresseur1>
-//           <dresseur2>Ondine</dresseur2>
-//           <pokemon1>Star</pokemon1>
-//           <pokemon2>LeBG</pokemon2>
-//           <date>2020-05-05</date>
-//         </combat>
 
 
 // <espece>
 //     <nom>Onix</nom>
-//     <taille></taille>
-//     <poids></poids>
+//     <taille>880</taille>
+//     <poids>210</poids>
 //     <element>
 //         <nom_element>Roche</nom_element>
 //         <faiblesse>Eau</faiblesse>

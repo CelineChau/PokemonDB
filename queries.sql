@@ -24,7 +24,7 @@ AND id_pokemon NOT IN (
     FROM Possede p, Attaque a, Element el
     WHERE a.id_element = el.id_element
     AND p.id_attaque = a.id_attaque
-    AND el.nom_element = "air"
+    AND el.nom_element = 'air'
 )
 ORDER BY nom_pokemon;
 
@@ -38,7 +38,7 @@ WHERE NOT EXISTS (
 	SELECT *
 	FROM Competiton c, Arene a 
 	WHERE c.id_arene = a.id_arene
-	AND a.nom_arene = "AZURIA"
+	AND a.nom_arene = 'AZURIA'
 	AND NOT EXISTS (
 		Select * 
 		FROM Participe p, Combat cb
@@ -73,12 +73,19 @@ WHERE id_competition IN (
 	Select c.id_competition
 	FROM Competiton c, Arene a
 	WHERE c.id_arene = a.id_arene
+	AND a.nom_arene = 'ARGENTA'
 )
 GROUP BY id_combat;
 
--- 6/ Nombre de dresseurs ayant uniquement des pokemons sans evolution 
+-- 6/ Nombre de dresseurs, dont le nom commence par "M", ayant uniquement des pokemons sans evolution 
+SELECT COUNT(*)
+FROM Dresseur d, Pokemon p
+WHERE d.id_dresseur = p.id_dresseur
+AND p.id_evolution IS NULL 
+AND d.nom_dresseur LIKE '^M%';
 
--- 7/ Espèces de pokemons présentes dans les compétitions 
+
+-- 7/ Espèces de pokemons présentes dans une compétition
 
 -- 8/ Dresseurs ayant le plus de pokemons
 

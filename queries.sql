@@ -10,17 +10,7 @@ HAVING COUNT(p.id_pokemon) > 2;
 
 -- Differences --------------------------
 
--- 2/ Pokemons ayant une espèce de type feu
-SELECT *
-FROM Pokemon
-WHERE id_espece IN (
-	SELECT e.id_espece
-	FROM espece e, element el
-	WHERE e.id_element = el.id_element
-	AND el.nom_element = "feu"
-);
-
--- 3/ Pokemons ayant une espèce de type eau n'ayant pas d'attaque de type air
+-- 2/ Pokemons ayant une espèce de type eau n'ayant pas d'attaque de type air
 SELECT *
 FROM Pokemon
 WHERE id_espece IN (
@@ -35,12 +25,13 @@ AND id_pokemon NOT IN (
     WHERE a.id_element = el.id_element
     AND p.id_attaque = a.id_attaque
     AND el.nom_element = "air"
-);
+)
+ORDER BY nom_pokemon;
 
 -- Divisions --------------------------
 
 
--- 4/ Dresseurs ayant participer à toutes les compétitions de l'arène AZURIA
+-- 3/ Dresseurs ayant participer à toutes les compétitions de l'arène AZURIA
 SELECT id_dresseur, nom_dresseur
 FROM Dresseur d
 WHERE NOT EXISTS (
@@ -59,7 +50,7 @@ WHERE NOT EXISTS (
 );
 
 
--- 5/ Regions possédant des arènes n'ayant jamais eu de compétition
+-- 4/ Regions possédant des arènes n'ayant jamais eu de compétition
 SELECT *
 FROM Region r
 WHERE NOT EXISTS ( 
@@ -75,10 +66,29 @@ WHERE NOT EXISTS (
 
 -- Aggregation --------------------------
 
--- 6/ Nombre de combats dans l'arène ARGENTA
+-- 5/ Nombre de combats dans l'arène ARGENTA
+SELECT COUNT(id_combat)
+FROM Combat
+WHERE id_competition IN (
+	Select c.id_competition
+	FROM Competiton c, Arene a
+	WHERE c.id_arene = a.id_arene
+)
+GROUP BY id_combat;
+
+-- 6/ Nombre de dresseurs ayant uniquement des pokemons sans evolution 
+
+-- 7/ Espèces de pokemons présentes dans les compétitions 
+
+-- 8/ Dresseurs ayant le plus de pokemons
+
+-- 9/ Pokemons ayant le même element
+
+-- 10/ Pokemons ayant la même espece
 
 
--- Jointures --------------------------
+-- Auto-jointures --------------------------
 
+-- 11/ Compétitions se déroulant dans la même région
 
 

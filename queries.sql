@@ -79,15 +79,33 @@ GROUP BY id_combat;
 
 -- 6/ Nombre de dresseurs, dont le nom commence par "M", ayant uniquement des pokemons sans evolution 
 SELECT COUNT(*)
-FROM Dresseur d, Pokemon p
-WHERE d.id_dresseur = p.id_dresseur
+FROM Dresseur d
+	INNER JOIN Pokemon p 
+	ON d.id_dresseur = p.id_dresseur
+	INNER JOIN Espece e
+	ON e.id_espece = p.id_espece
+WHERE 
 AND p.id_evolution IS NULL 
 AND d.nom_dresseur LIKE '^M%';
 
+-- 7/ Moyenne d'âge des dresseurs ayant participer à au moins une compétition ces 90 derniers jours
+SELECT AVG(d.age_dresseur)
+FROM Dresseur d, Participe p, Combat c, Competiton cp
+WHERE d.id_dresseur = p.id_dresseur1
+OR d.id_dresseur = p.id_dresseur2
+AND c.id_competition = cp.id_competition
+AND c.id_combat = p.id_combat
+AND c.date_combat < DATE_SUB(NOW(), INTERVAL 90 DAY);
 
--- 7/ Espèces de pokemons présentes dans une compétition
 
 -- 8/ Dresseurs ayant le plus de pokemons
+SELECT *
+FROM (
+	Select *, COUNT(id_pokemon) as nbPokemon, ROW_NUMBER() OVER (PARTITION BY COUNT(id_dresseur) ORDER BY nbPokemon DESC) row_number
+	FROM Dresseur d, Pokemon p
+	WHERE d.id_dresseur = p.id_dresseur
+) s
+WHERE row_number = 1;
 
 -- 9/ Pokemons ayant le même element
 

@@ -16,6 +16,7 @@ CREATE TABLE `Dresseur`
 (
     `id_dresseur`  INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `nom_dresseur` VARCHAR(20) NOT NULL,
+    `age_dresseur` INT NOT NULL,
     `specialite`   VARCHAR(20) NULL,
     `id_equipe`    INT         NOT NULL
 );
@@ -78,8 +79,7 @@ CREATE TABLE `Pokemon`
     `nom_pokemon` VARCHAR(20) NOT NULL,
     `pv`          INT         NOT NULL,
     `id_espece`   INT         NOT NULL,
-    `id_dresseur` INT         NULL,
-    `recompense`  INT         NOT NULL
+    `id_dresseur` INT         NULL
 );
 
 DROP TABLE IF EXISTS `Competition`;
@@ -88,7 +88,9 @@ CREATE TABLE `Competition`
     `id_competition` INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `id_arene`       INT          NOT NULL,
     `id_gagnant`     INT          NULL,
-    `recompense`     VARCHAR(255) NOT NULL
+    `recompense`     VARCHAR(255) NOT NULL,
+    `debut_competition`     INT NOT NULL,
+    `fin_competition`     INT NOT NULL
 );
 
 DROP TABLE IF EXISTS `Arene`;

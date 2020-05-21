@@ -24,7 +24,7 @@ AND id_pokemon NOT IN (
     FROM Possede p, Attaque a, Element el
     WHERE a.id_element = el.id_element
     AND p.id_attaque = a.id_attaque
-    AND el.nom_element = 'air'
+    AND el.nom_element = 'vol'
 )
 ORDER BY nom_pokemon;
 
@@ -53,59 +53,57 @@ WHERE NOT EXISTS (
 -- 4/ Regions possédant des arènes n'ayant jamais eu de compétition
 SELECT *
 FROM Region r
-WHERE NOT EXISTS ( 
-	Select id_region
+WHERE r.id_region IN ( 
+  Select id_region
 	FROM Arene
-	WHERE NOT EXISTS (
-		Select *
-		FROM Arene a, Competiton c
+	WHERE id_arene NOT IN (
+		Select a.id_arene
+		FROM Arene a, Competition c
 		WHERE c.id_arene = a.id_arene
 	)
 );
 
 
+
 -- Aggregation --------------------------
 
--- 5/ Nombre de combats dans l'arène ARGENTA
-SELECT COUNT(id_combat)
+-- 5/ Nombre de combats dans l'arène Azuria
+SELECT Count(id_combat)
 FROM Combat
 WHERE id_competition IN (
 	Select c.id_competition
-	FROM Competiton c, Arene a
+	FROM Competition c, Arene a
 	WHERE c.id_arene = a.id_arene
-	AND a.nom_arene = 'ARGENTA'
+	AND a.nom_arene = 'Azuria'
 )
-GROUP BY id_combat;
 
--- 6/ Nombre de dresseurs, dont le nom commence par "M", ayant uniquement des pokemons sans evolution 
-SELECT COUNT(*)
+-- TODO ayant uniquement des pokemons sans evolution
+-- 6/ Nombre de dresseurs, dont le nom commence par "M", ayant au moins un pokemon sans evolution
+SELECT DISTINCT d.*
 FROM Dresseur d
 	INNER JOIN Pokemon p 
 	ON d.id_dresseur = p.id_dresseur
 	INNER JOIN Espece e
 	ON e.id_espece = p.id_espece
-WHERE 
-AND p.id_evolution IS NULL 
-AND d.nom_dresseur LIKE '^M%';
+WHERE d.nom_dresseur LIKE 'M%'
+AND e.id_evolution IS NULL
 
 -- 7/ Moyenne d'âge des dresseurs ayant participer à au moins une compétition ces 90 derniers jours
-SELECT AVG(d.age_dresseur)
-FROM Dresseur d, Participe p, Combat c, Competiton cp
+SELECT AVG(DISTINCT d.age)
+FROM Dresseur d, Participe p, Combat c, Competition cp
 WHERE d.id_dresseur = p.id_dresseur1
 OR d.id_dresseur = p.id_dresseur2
 AND c.id_competition = cp.id_competition
 AND c.id_combat = p.id_combat
-AND c.date_combat < DATE_SUB(NOW(), INTERVAL 90 DAY);
+AND c.date < DATE_SUB(NOW(), INTERVAL 90 DAY)
 
 
 -- 8/ Dresseurs ayant le plus de pokemons
-SELECT *
-FROM (
-	Select *, COUNT(id_pokemon) as nbPokemon, ROW_NUMBER() OVER (PARTITION BY COUNT(id_dresseur) ORDER BY nbPokemon DESC) row_number
-	FROM Dresseur d, Pokemon p
-	WHERE d.id_dresseur = p.id_dresseur
-) s
-WHERE row_number = 1;
+SELECT COUNT(*) AS nbPokemons 
+FROM Dresseur d inner join Pokemon p
+    ON d.id_dresseur = p.id_dresseur
+GROUP BY d.id_dresseur
+ORDER BY nbPokemons DESC LIMIT 1;
 
 -- 9/ Pokemons ayant le même element
 

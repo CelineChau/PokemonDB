@@ -1,0 +1,221 @@
+// <competition>
+//     <nom>Free 2020</nom>
+//     <arene>Azuria</arene>
+//     <gagnant>
+//         <dresseur genre="M">MKD</dresseur>
+//         <combat>
+//           <dresseur1>MKD</dresseur1>
+//           <dresseur2>Soreiyu</dresseur2>
+//           <pokemon1>Kawaii</pokemon1>
+//           <pokemon2>LeBG</pokemon2>
+//           <date>2020-05-05</date>
+//         </combat>
+//         <combat>
+//           <dresseur1>MKD</dresseur1>
+//           <dresseur2>Ondine</dresseur2>
+//           <pokemon1>Star</pokemon1>
+//           <pokemon2>LeBG</pokemon2>
+//           <date>2020-05-05</date>
+//         </combat>
+//     </gagnant>
+//     <recompense>100</recompense>
+//     <debut>2020-05-04</debut>
+//     <fin>2020-05-09</fin>
+// </competition>
+
+// 1st JSON 
+
+{
+   "competition":{
+      "nom":"Free 2020",
+      "arene":"Azuria",
+      "gagnant":{
+         "dresseur":{
+            "sexe":"M",
+            "title":"MKD"
+         },
+         "combat":[
+            {
+               "dresseur1":"MKD",
+               "dresseur2":"Soreiyu",
+               "pokemon1":"Kawaii",
+               "pokemon2":"LeBG",
+               "date":"2020-05-05"
+            },
+            {
+               "dresseur1":"MKD",
+               "dresseur2":"Ondine",
+               "pokemon1":"Star",
+               "pokemon2":"LeBG",
+               "date":"2020-05-05"
+            }
+         ]
+      },
+      "recompense":100,
+      "debut":"2020-05-04",
+      "fin":"2020-05-09"
+   }
+}
+
+// XPATH 1: /competition/gagnant/combat[pokemon1="Kawaii" and pokemon2="LeBG"] 
+// JSON Path 1: $.competition.gagnant.combat[?(@.pokemon1=='Kawaii' && @.pokemon2=='LeBG')]
+// => Récupère le combat :
+// <combat>
+//   <dresseur1>MKD</dresseur1>
+//   <dresseur2>Soreiyu</dresseur2>
+//   <pokemon1>Kawaii</pokemon1>
+//   <pokemon2>LeBG</pokemon2>
+//   <date>2020-05-05</date>
+// </combat>
+
+
+// XPATH 2: //combat[position()<3]
+// JSON Path 2: $..combat[:2]
+// => Récupère les deux premiers combats
+//         <combat>
+//           <dresseur1>MKD</dresseur1>
+//           <dresseur2>Soreiyu</dresseur2>
+//           <pokemon1>Kawaii</pokemon1>
+//           <pokemon2>LeBG</pokemon2>
+//           <date>2020-05-05</date>
+//         </combat>
+//         <combat>
+//           <dresseur1>MKD</dresseur1>
+//           <dresseur2>Ondine</dresseur2>
+//           <pokemon1>Star</pokemon1>
+//           <pokemon2>LeBG</pokemon2>
+//           <date>2020-05-05</date>
+//         </combat>
+
+// XPATH 3 (end-with fct in XPATH 2.0): /competition/gagnant/combat[ends-with(date,'05')] 
+// JSON Path 3: $.competition.gagnant.combat[?(@.date =~ /.*05/i)]
+// => Récupère les combats dont la date finit par "05" :
+//         <combat>
+//           <dresseur1>MKD</dresseur1>
+//           <dresseur2>Soreiyu</dresseur2>
+//           <pokemon1>Kawaii</pokemon1>
+//           <pokemon2>LeBG</pokemon2>
+//           <date>2020-05-05</date>
+//         </combat>
+//         <combat>
+//           <dresseur1>MKD</dresseur1>
+//           <dresseur2>Ondine</dresseur2>
+//           <pokemon1>Star</pokemon1>
+//           <pokemon2>LeBG</pokemon2>
+//           <date>2020-05-05</date>
+//         </combat>
+
+
+// <espece>
+//     <nom>Onix</nom>
+//     <taille></taille>
+//     <poids></poids>
+//     <element>
+//         <nom_element>Roche</nom_element>
+//         <faiblesse>Eau</faiblesse>
+//         <resistance>Feu</resistance>
+//     </element>
+//     <evolution>Steelix</evolution>
+//     <ancetre></ancetre>
+// </espece>
+
+// 2nd JSON 
+
+{
+   "espece":{
+      "nom":"Onix",
+      "taille":"880",
+      "poids":"210",
+      "element":{
+         "nom_element":"Roche",
+         "faiblesse":"Eau",
+         "resistance":"Feu"
+      },
+      "evolution":"Steelix"
+   }
+}
+
+
+
+
+
+// <pokemon>
+//   <nom>Oneex</nom>
+//   <pv>50</pv>
+//   <espece>Onix</espece>
+//   <dresseur>Pierre</dresseur>
+//   <attaque id=1>
+//         <nom_attaque>Tomberoche</nom_attaque>
+//         <type>offensive</type>
+//   </attaque>
+//   <attaque id=2>
+//         <nom_attaque>Seduction</nom_attaque>
+//         <type>defensive</type>
+//   </attaque>
+// </pokemon>
+
+// 3rd JSON
+
+{
+   "pokemon":{
+      "nom":"Oneex",
+      "pv":"50",
+      "espece":"Onix",
+      "nom_dresseur":"Pierre",
+      "attaque":[
+        {
+            "id": 1,
+            "nom_attaque":"Tomberoche",
+            "type":"offensive"
+        },
+        {
+            "id": 2,
+            "nom_attaque":"Seduction",
+            "type":"defensive"
+        }
+      ]
+   }
+}
+
+// XPATH 4: /pokemon/attaque[last()]/type
+// JSON Path 4: $.pokemon.attaque[-1:].type
+// => Récupère le type de la dernière attaque : defensive
+
+
+// XPATH 5: //attaque[type != "offensive"]/nom_attaque
+// JSON Path 5: $..attaque[?(@.type != "offensive")].nom_attaque
+// => Récupère le nom des attaques n'ayant pas le type "offensive" : Seduction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

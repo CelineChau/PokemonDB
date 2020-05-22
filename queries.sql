@@ -126,14 +126,18 @@ WHERE U.id_dresseur1 = d.id_dresseur;
 
 -- Auto-jointures --------------------------
 
--- 10/ Compétitions se déroulant dans la même région (Affichage par région)
-SELECT DISTINCT c1.nom_competition, r.nom_region
-FROM Competition c1, Competition c2, Arene a, Region r
-WHERE c1.id_arene = a.id_arene
-AND c2.id_arene = a.id_arene
-AND a.id_region = r.id_region
-AND c1.id_arene = c2.id_arene
-ORDER BY r.nom_region;
+-- 10/ Récupérer les combats faisant intervenir que des dresseurs de plus de 20 ans (exclus)
+SELECT *
+FROM Combat
+WHERE id_combat = ANY (
+	SELECT p.id_combat
+	FROM Participe p, Dresseur d1, Dresseur d2
+	WHERE p.id_dresseur1 = d1.id_dresseur
+	AND p.id_dresseur2 = d2.id_dresseur
+	AND d1.id_dresseur <> d2.id_dresseur
+	AND d1.age > 20
+	AND d2.age > 20
+);
 
 
 

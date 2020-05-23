@@ -1,29 +1,35 @@
-// <competition>
-//     <nom>Free 2020</nom>
-//     <arene>Azuria</arene>
-//     <gagnant>
-//         <dresseur genre="M">MKD</dresseur>
-//         <combat>
-//           <dresseur1>MKD</dresseur1>
-//           <dresseur2>Soreiyu</dresseur2>
-//           <pokemon1>Kawaii</pokemon1>
-//           <pokemon2>LeBG</pokemon2>
-//           <date>2020-05-05</date>
-//         </combat>
-//         <combat>
-//           <dresseur1>MKD</dresseur1>
-//           <dresseur2>Ondine</dresseur2>
-//           <pokemon1>Star</pokemon1>
-//           <pokemon2>LeBG</pokemon2>
-//           <date>2020-05-05</date>
-//         </combat>
-//     </gagnant>
-//     <recompense>100</recompense>
-//     <debut>2020-05-04</debut>
-//     <fin>2020-05-09</fin>
-// </competition>
+// Competition //
 
-// 1st JSON 
+// XML
+<competition>
+    <nom>Free 2020</nom>
+    <arene>Azuria</arene>
+    <gagnant>
+        <dresseur genre="M">MKD</dresseur>
+        <combat>
+          <dresseur1>MKD</dresseur1>
+          <dresseur2>Soreiyu</dresseur2>
+          <pokemon1>Kawaii</pokemon1>
+          <pokemon2>LeBG</pokemon2>
+          <date>2020-05-05</date>
+        </combat>
+        <combat>
+          <dresseur1>MKD</dresseur1>
+          <dresseur2>Ondine</dresseur2>
+          <pokemon1>Star</pokemon1>
+          <pokemon2>LeBG</pokemon2>
+          <date>2020-05-05</date>
+        </combat>
+    </gagnant>
+    <recompense>100</recompense>
+    <debut>2020-05-04</debut>
+    <fin>2020-05-09</fin>
+</competition>
+
+// DTD
+
+
+// JSON
 
 {
    "competition":{
@@ -57,63 +63,26 @@
    }
 }
 
-// XPATH 1: /competition/gagnant/combat[pokemon1="Kawaii" and pokemon2="LeBG"] 
-// JSON Path 1: $.competition.gagnant.combat[?(@.pokemon1=='Kawaii' && @.pokemon2=='LeBG')]
-// => Récupère le combat :
-// <combat>
-//   <dresseur1>MKD</dresseur1>
-//   <dresseur2>Soreiyu</dresseur2>
-//   <pokemon1>Kawaii</pokemon1>
-//   <pokemon2>LeBG</pokemon2>
-//   <date>2020-05-05</date>
-// </combat>
+// Espece
+
+// XML
+<espece>
+    <nom>Onix</nom>
+    <taille>880</taille>
+    <poids>210</poids>
+    <element>
+        <nom_element>Roche</nom_element>
+        <faiblesse>Eau</faiblesse>
+        <resistance>Feu</resistance>
+    </element>
+    <evolution>Steelix</evolution>
+    <ancetre></ancetre>
+</espece>
+
+// DTD
 
 
-// XPATH 2: //combat[position()<3]
-// JSON Path 2: $..combat[:2]
-// => Récupère les deux premiers combats
-//         <combat>
-//           <dresseur1>MKD</dresseur1>
-//           <dresseur2>Soreiyu</dresseur2>
-//           <pokemon1>Kawaii</pokemon1>
-//           <pokemon2>LeBG</pokemon2>
-//           <date>2020-05-05</date>
-//         </combat>
-//         <combat>
-//           <dresseur1>MKD</dresseur1>
-//           <dresseur2>Ondine</dresseur2>
-//           <pokemon1>Star</pokemon1>
-//           <pokemon2>LeBG</pokemon2>
-//           <date>2020-05-05</date>
-//         </combat>
-
-// XPATH 3 (end-with fct in XPATH 2.0): /competition/gagnant/combat[ends-with(date,'05')] 
-// JSON Path 3: $.competition.gagnant.combat[?(@.date =~ /.*05/i)]
-// => Récupère les combats dont la date finit par "05" :
-//         <combat>
-//           <dresseur1>MKD</dresseur1>
-//           <dresseur2>Soreiyu</dresseur2>
-//           <pokemon1>Kawaii</pokemon1>
-//           <pokemon2>LeBG</pokemon2>
-//           <date>2020-05-05</date>
-//         </combat>
-
-
-// <espece>
-//     <nom>Onix</nom>
-//     <taille>880</taille>
-//     <poids>210</poids>
-//     <element>
-//         <nom_element>Roche</nom_element>
-//         <faiblesse>Eau</faiblesse>
-//         <resistance>Feu</resistance>
-//     </element>
-//     <evolution>Steelix</evolution>
-//     <ancetre></ancetre>
-// </espece>
-
-// 2nd JSON 
-
+// JSON
 {
    "espece":{
       "nom":"Onix",
@@ -128,27 +97,28 @@
    }
 }
 
+// Pokemon
+
+// XML
+<pokemon>
+  <nom>Oneex</nom>
+  <pv>50</pv>
+  <espece>Onix</espece>
+  <dresseur>Pierre</dresseur>
+  <attaque id=1>
+        <nom_attaque>Tomberoche</nom_attaque>
+        <type>offensive</type>
+  </attaque>
+  <attaque id=2>
+        <nom_attaque>Seduction</nom_attaque>
+        <type>defensive</type>
+  </attaque>
+</pokemon>
+
+// DTD
 
 
-
-
-// <pokemon>
-//   <nom>Oneex</nom>
-//   <pv>50</pv>
-//   <espece>Onix</espece>
-//   <dresseur>Pierre</dresseur>
-//   <attaque id=1>
-//         <nom_attaque>Tomberoche</nom_attaque>
-//         <type>offensive</type>
-//   </attaque>
-//   <attaque id=2>
-//         <nom_attaque>Seduction</nom_attaque>
-//         <type>defensive</type>
-//   </attaque>
-// </pokemon>
-
-// 3rd JSON
-
+// JSON
 {
    "pokemon":{
       "nom":"Oneex",
@@ -170,45 +140,74 @@
    }
 }
 
-// XPATH 4: /pokemon/attaque[last()]/type
-// JSON Path 4: $.pokemon.attaque[-1:].type
-// => Récupère le type de la dernière attaque : defensive
+// XPATH 1: 
+/competition/gagnant/combat[pokemon1="Kawaii" and pokemon2="LeBG"] 
+
+//JSON Path 1: 
+$.competition.gagnant.combat[?(@.pokemon1=='Kawaii' && @.pokemon2=='LeBG')]
+
+//=> Récupère le combat :
+<combat>
+  <dresseur1>MKD</dresseur1>
+  <dresseur2>Soreiyu</dresseur2>
+  <pokemon1>Kawaii</pokemon1>
+  <pokemon2>LeBG</pokemon2>
+  <date>2020-05-05</date>
+</combat>
 
 
-// XPATH 5: //attaque[type != "offensive"]/nom_attaque
-// JSON Path 5: $..attaque[?(@.type != "offensive")].nom_attaque
-// => Récupère le nom des attaques n'ayant pas le type "offensive" : Seduction
+//XPATH 2:
+//combat[position()<3]
+
+//JSON Path 2:
+$..combat[:2]
+
+//=> Récupère les deux premiers combats
+<combat>
+  <dresseur1>MKD</dresseur1>
+  <dresseur2>Soreiyu</dresseur2>
+  <pokemon1>Kawaii</pokemon1>
+  <pokemon2>LeBG</pokemon2>
+  <date>2020-05-05</date>
+</combat>
+<combat>
+  <dresseur1>MKD</dresseur1>
+  <dresseur2>Ondine</dresseur2>
+  <pokemon1>Star</pokemon1>
+  <pokemon2>LeBG</pokemon2>
+  <date>2020-05-05</date>
+</combat>
+
+//XPATH 3 (end-with fct in XPATH 2.0):
+/competition/gagnant/combat[ends-with(date,'05')] 
+
+//JSON Path 3:
+$.competition.gagnant.combat[?(@.date =~ /.*05/i)]
+
+//=> Récupère les combats dont la date finit par "05" :
+<combat>
+  <dresseur1>MKD</dresseur1>
+  <dresseur2>Soreiyu</dresseur2>
+  <pokemon1>Kawaii</pokemon1>
+  <pokemon2>LeBG</pokemon2>
+  <date>2020-05-05</date>
+</combat>
+
+//XPATH 4:
+/pokemon/attaque[last()]/type
+
+//JSON Path 4:
+$.pokemon.attaque[-1:].type
+
+//=> Récupère le type de la dernière attaque :
+defensive
 
 
+//XPATH 5:
+//attaque[type != "offensive"]/nom_attaque
 
+//JSON Path 5:
+$..attaque[?(@.type != "offensive")].nom_attaque
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//=> Récupère le nom des attaques n'ayant pas le type "offensive" :
+Seduction

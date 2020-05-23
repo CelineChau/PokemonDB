@@ -1,51 +1,13 @@
--- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: May 21, 2020 at 10:12 PM
--- Server version: 10.2.10-MariaDB
--- PHP Version: 7.2.30
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `pokemon_bdd`
---
-DROP DATABASE `pokemon_bdd`;
-CREATE DATABASE IF NOT EXISTS `pokemon_bdd` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `pokemon_bdd`;
 USE `pokemon_bdd`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Arene`
---
 
 DROP TABLE IF EXISTS `Arene`;
 CREATE TABLE `Arene` (
   `id_arene` int(11) NOT NULL,
-  `nom_arene` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_arene` varchar(255) NOT NULL,
   `id_chef` int(11) DEFAULT NULL,
   `id_region` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Arene`
---
-
-TRUNCATE TABLE `Arene`;
---
--- Dumping data for table `Arene`
---
+);
 
 INSERT INTO `Arene` (`id_arene`, `nom_arene`, `id_chef`, `id_region`) VALUES
 (1, 'Argenta', 1, 1),
@@ -61,28 +23,13 @@ INSERT INTO `Arene` (`id_arene`, `nom_arene`, `id_chef`, `id_region`) VALUES
 (11, 'Algatia', 11, 3),
 (12, 'Atalanopolis', 12, 3);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Attaque`
---
-
 DROP TABLE IF EXISTS `Attaque`;
 CREATE TABLE `Attaque` (
   `id_attaque` int(11) NOT NULL,
-  `nom_attaque` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nom_attaque` varchar(20) NOT NULL,
+  `type` varchar(20) DEFAULT NULL,
   `id_element` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Attaque`
---
-
-TRUNCATE TABLE `Attaque`;
---
--- Dumping data for table `Attaque`
---
+);
 
 INSERT INTO `Attaque` (`id_attaque`, `nom_attaque`, `type`, `id_element`) VALUES
 (1, 'Tomberoche', 'offensive', 1),
@@ -95,7 +42,7 @@ INSERT INTO `Attaque` (`id_attaque`, `nom_attaque`, `type`, `id_element`) VALUES
 (8, 'Dracochoc', 'offensive', 8),
 (9, 'Canicule', 'offensive', 9),
 (10, 'Tonnerre', 'offensive', 10),
-(11, "Lame dAir", 'offensive', 12),
+(11, 'Lame d\'Air', 'offensive', 12),
 (12, 'Hydrocanon', 'offensive', 2),
 (13, 'Armure', 'defensive', 5),
 (14, 'Malédiction', 'defensive', 6),
@@ -104,69 +51,39 @@ INSERT INTO `Attaque` (`id_attaque`, `nom_attaque`, `type`, `id_element`) VALUES
 (17, 'Para-Spore', 'defensive', 3),
 (18, 'Danse Pluie', 'defensive', 2);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Combat`
---
-
 DROP TABLE IF EXISTS `Combat`;
 CREATE TABLE `Combat` (
   `id_combat` int(11) NOT NULL,
   `id_competition` int(11) DEFAULT NULL,
   `date` date NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Combat`
---
-
-TRUNCATE TABLE `Combat`;
---
--- Dumping data for table `Combat`
---
+);
 
 INSERT INTO `Combat` (`id_combat`, `id_competition`, `date`) VALUES
-(1, 1, '2020-05-21'),
-(2, 1, '2020-05-21'),
-(3, 2, '2020-05-21'),
-(4, 2, '2020-05-21'),
-(5, 3, '2020-05-21'),
-(6, 3, '2020-05-21'),
-(7, 4, '2020-05-21'),
-(8, 4, '2020-05-21'),
-(9, 5, '2020-05-21'),
-(10, 5, '2020-05-21'),
-(11, 6, '2020-05-21'),
-(12, 6, '2020-05-21'),
-(13, 7, '2020-05-21'),
-(14, 7, '2020-05-21');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Competition`
---
+(1, 1, '2020-05-05'),
+(2, 1, '2020-05-09'),
+(3, 2, '2020-05-04'),
+(4, 2, '2020-05-04'),
+(5, 3, '2020-03-11'),
+(6, 3, '2020-03-12'),
+(7, 4, '2019-12-11'),
+(8, 4, '2019-12-18'),
+(9, 5, '2020-08-12'),
+(10, 5, '2020-08-19'),
+(11, 6, '2020-06-17'),
+(12, 6, '2020-06-22'),
+(13, 7, '2020-11-19'),
+(14, 7, '2020-11-25');
 
 DROP TABLE IF EXISTS `Competition`;
 CREATE TABLE `Competition` (
   `id_competition` int(11) NOT NULL,
   `id_arene` int(11) NOT NULL,
   `id_gagnant` int(11) DEFAULT NULL,
-  `recompense` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `recompense` varchar(255) NOT NULL,
   `date_debut` date NOT NULL,
   `date_fin` date NOT NULL,
-  `nom_competition` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Competition`
---
-
-TRUNCATE TABLE `Competition`;
---
--- Dumping data for table `Competition`
---
+  `nom_competition` varchar(255) NOT NULL
+);
 
 INSERT INTO `Competition` (`id_competition`, `id_arene`, `id_gagnant`, `recompense`, `date_debut`, `date_fin`, `nom_competition`) VALUES
 (1, 2, 13, '100', '2020-05-04', '2020-05-09', 'Free 2020'),
@@ -177,29 +94,14 @@ INSERT INTO `Competition` (`id_competition`, `id_arene`, `id_gagnant`, `recompen
 (6, 12, 12, '1250', '2020-06-08', '2020-06-23', 'Hard 2020'),
 (7, 2, 2, '550', '2020-11-16', '2020-11-26', 'EXS 2020\n');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Dresseur`
---
-
 DROP TABLE IF EXISTS `Dresseur`;
 CREATE TABLE `Dresseur` (
   `id_dresseur` int(11) NOT NULL,
-  `nom_dresseur` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `specialite` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sexe` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_dresseur` varchar(20) NOT NULL,
+  `specialite` varchar(20) DEFAULT NULL,
+  `sexe` varchar(20) NOT NULL,
   `age` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Dresseur`
---
-
-TRUNCATE TABLE `Dresseur`;
---
--- Dumping data for table `Dresseur`
---
+);
 
 INSERT INTO `Dresseur` (`id_dresseur`, `nom_dresseur`, `specialite`, `sexe`, `age`) VALUES
 (1, 'Pierre', NULL, 'M', 42),
@@ -218,28 +120,13 @@ INSERT INTO `Dresseur` (`id_dresseur`, `nom_dresseur`, `specialite`, `sexe`, `ag
 (14, 'Soreiyu', NULL, 'F', 21),
 (15, 'Ariana', NULL, '?', 25);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Element`
---
-
 DROP TABLE IF EXISTS `Element`;
 CREATE TABLE `Element` (
   `id_element` int(11) NOT NULL,
-  `nom_element` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_element` varchar(20) NOT NULL,
   `id_elem_faible` int(11) DEFAULT NULL,
   `id_elem_resistant` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Element`
---
-
-TRUNCATE TABLE `Element`;
---
--- Dumping data for table `Element`
---
+);
 
 INSERT INTO `Element` (`id_element`, `nom_element`, `id_elem_faible`, `id_elem_resistant`) VALUES
 (1, 'Roche', 2, 9),
@@ -255,34 +142,19 @@ INSERT INTO `Element` (`id_element`, `nom_element`, `id_elem_faible`, `id_elem_r
 (11, 'Combat', 4, 1),
 (12, 'Vol', 10, 3);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Espece`
---
-
 DROP TABLE IF EXISTS `Espece`;
 CREATE TABLE `Espece` (
   `id_espece` int(11) NOT NULL,
-  `nom_espece` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_espece` varchar(20) NOT NULL,
   `taille` int(11) DEFAULT NULL,
   `poids` int(11) DEFAULT NULL,
   `id_element` int(11) NOT NULL,
   `id_evolution` int(11) DEFAULT NULL,
   `id_ancetre` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Espece`
---
-
-TRUNCATE TABLE `Espece`;
---
--- Dumping data for table `Espece`
---
+);
 
 INSERT INTO `Espece` (`id_espece`, `nom_espece`, `taille`, `poids`, `id_element`, `id_evolution`, `id_ancetre`) VALUES
-(1, 'Onix', NULL, NULL, 1, 7, NULL),
+(1, 'Onix', 880, 210, 1, 7, NULL),
 (2, 'Staross', NULL, NULL, 2, NULL, 16),
 (3, 'Saquedeneu', NULL, NULL, 3, NULL, NULL),
 (4, 'M.Mime', NULL, NULL, 4, NULL, NULL),
@@ -304,12 +176,6 @@ INSERT INTO `Espece` (`id_espece`, `nom_espece`, `taille`, `poids`, `id_element`
 (20, 'Salameche', NULL, NULL, 9, 21, NULL),
 (21, 'Reptincel', NULL, NULL, 9, 15, 20);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Participe`
---
-
 DROP TABLE IF EXISTS `Participe`;
 CREATE TABLE `Participe` (
   `id_combat` int(11) NOT NULL,
@@ -317,16 +183,7 @@ CREATE TABLE `Participe` (
   `id_dresseur2` int(11) NOT NULL,
   `id_pokemon1` int(11) NOT NULL,
   `id_pokemon2` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Participe`
---
-
-TRUNCATE TABLE `Participe`;
---
--- Dumping data for table `Participe`
---
+);
 
 INSERT INTO `Participe` (`id_combat`, `id_dresseur1`, `id_dresseur2`, `id_pokemon1`, `id_pokemon2`) VALUES
 (1, 13, 14, 13, 14),
@@ -344,29 +201,14 @@ INSERT INTO `Participe` (`id_combat`, `id_dresseur1`, `id_dresseur2`, `id_pokemo
 (13, 13, 2, 13, 17),
 (14, 1, 2, 16, 17);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Pokemon`
---
-
 DROP TABLE IF EXISTS `Pokemon`;
 CREATE TABLE `Pokemon` (
   `id_pokemon` int(11) NOT NULL,
-  `nom_pokemon` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_pokemon` varchar(20) NOT NULL,
   `pv` int(11) NOT NULL,
   `id_espece` int(11) NOT NULL,
   `id_dresseur` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Pokemon`
---
-
-TRUNCATE TABLE `Pokemon`;
---
--- Dumping data for table `Pokemon`
---
+);
 
 INSERT INTO `Pokemon` (`id_pokemon`, `nom_pokemon`, `pv`, `id_espece`, `id_dresseur`) VALUES
 (1, 'Oneex', 50, 1, 13),
@@ -387,26 +229,11 @@ INSERT INTO `Pokemon` (`id_pokemon`, `nom_pokemon`, `pv`, `id_espece`, `id_dress
 (16, 'Xino', 55, 1, 1),
 (17, 'Star', 67, 2, 2);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Possede`
---
-
 DROP TABLE IF EXISTS `Possede`;
 CREATE TABLE `Possede` (
   `id_pokemon` int(11) NOT NULL,
   `id_attaque` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Possede`
---
-
-TRUNCATE TABLE `Possede`;
---
--- Dumping data for table `Possede`
---
+);
 
 INSERT INTO `Possede` (`id_pokemon`, `id_attaque`) VALUES
 (1, 1),
@@ -430,94 +257,51 @@ INSERT INTO `Possede` (`id_pokemon`, `id_attaque`) VALUES
 (14, 14),
 (15, 15);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Region`
---
-
 DROP TABLE IF EXISTS `Region`;
 CREATE TABLE `Region` (
   `id_region` int(11) NOT NULL,
-  `nom_region` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_region` varchar(20) NOT NULL,
   `population` int(11) DEFAULT NULL,
-  `maire` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Truncate table before insert `Region`
---
-
-TRUNCATE TABLE `Region`;
---
--- Dumping data for table `Region`
---
+  `maire` varchar(20) DEFAULT NULL
+);
 
 INSERT INTO `Region` (`id_region`, `nom_region`, `population`, `maire`) VALUES
 (1, 'Kanto', 1782, 'Samuel'),
 (2, 'Johto', 4846, 'Orme'),
 (3, 'Hoenn', 6644, 'Seko');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `Arene`
---
 ALTER TABLE `Arene`
   ADD PRIMARY KEY (`id_arene`),
   ADD KEY `id_chef_Arene` (`id_chef`),
   ADD KEY `id_region_Arene` (`id_region`);
 
---
--- Indexes for table `Attaque`
---
 ALTER TABLE `Attaque`
   ADD PRIMARY KEY (`id_attaque`),
   ADD KEY `id_element_Attaque` (`id_element`);
 
---
--- Indexes for table `Combat`
---
 ALTER TABLE `Combat`
   ADD PRIMARY KEY (`id_combat`),
   ADD KEY `id_competition_Combat` (`id_competition`);
 
---
--- Indexes for table `Competition`
---
 ALTER TABLE `Competition`
   ADD PRIMARY KEY (`id_competition`),
   ADD KEY `id_gagnant_Competition` (`id_gagnant`),
   ADD KEY `id_arene_Competition` (`id_arene`);
 
---
--- Indexes for table `Dresseur`
---
 ALTER TABLE `Dresseur`
   ADD PRIMARY KEY (`id_dresseur`);
 
---
--- Indexes for table `Element`
---
 ALTER TABLE `Element`
   ADD PRIMARY KEY (`id_element`),
   ADD KEY `id_elem_faible_element` (`id_elem_faible`),
   ADD KEY `id_elem_fort_element` (`id_elem_resistant`);
 
---
--- Indexes for table `Espece`
---
 ALTER TABLE `Espece`
   ADD PRIMARY KEY (`id_espece`),
   ADD KEY `id_element_Espece` (`id_element`),
   ADD KEY `id_ancetre_Espece` (`id_ancetre`),
   ADD KEY `id_evolution_Espece` (`id_evolution`);
 
---
--- Indexes for table `Participe`
---
 ALTER TABLE `Participe`
   ADD PRIMARY KEY (`id_combat`,`id_dresseur1`,`id_dresseur2`,`id_pokemon1`,`id_pokemon2`),
   ADD KEY `id_dresseur1_Participe` (`id_dresseur1`),
@@ -525,133 +309,68 @@ ALTER TABLE `Participe`
   ADD KEY `id_pokemon1` (`id_pokemon1`),
   ADD KEY `id_pokemon2` (`id_pokemon2`);
 
---
--- Indexes for table `Pokemon`
---
 ALTER TABLE `Pokemon`
   ADD PRIMARY KEY (`id_pokemon`),
   ADD KEY `id_espece_pokemon` (`id_espece`),
   ADD KEY `id_dresseur_pokemon` (`id_dresseur`);
 
---
--- Indexes for table `Possede`
---
 ALTER TABLE `Possede`
   ADD PRIMARY KEY (`id_pokemon`,`id_attaque`),
   ADD KEY `id_attaque_Possede` (`id_attaque`);
 
---
--- Indexes for table `Region`
---
 ALTER TABLE `Region`
   ADD PRIMARY KEY (`id_region`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `Arene`
---
 ALTER TABLE `Arene`
   MODIFY `id_arene` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
---
--- AUTO_INCREMENT for table `Attaque`
---
 ALTER TABLE `Attaque`
   MODIFY `id_attaque` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
---
--- AUTO_INCREMENT for table `Combat`
---
 ALTER TABLE `Combat`
   MODIFY `id_combat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
---
--- AUTO_INCREMENT for table `Competition`
---
 ALTER TABLE `Competition`
   MODIFY `id_competition` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
---
--- AUTO_INCREMENT for table `Dresseur`
---
 ALTER TABLE `Dresseur`
   MODIFY `id_dresseur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
---
--- AUTO_INCREMENT for table `Element`
---
 ALTER TABLE `Element`
   MODIFY `id_element` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
---
--- AUTO_INCREMENT for table `Espece`
---
 ALTER TABLE `Espece`
   MODIFY `id_espece` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
---
--- AUTO_INCREMENT for table `Pokemon`
---
 ALTER TABLE `Pokemon`
   MODIFY `id_pokemon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
---
--- AUTO_INCREMENT for table `Region`
---
 ALTER TABLE `Region`
   MODIFY `id_region` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `Arene`
---
 ALTER TABLE `Arene`
   ADD CONSTRAINT `id_chef_Arene` FOREIGN KEY (`id_chef`) REFERENCES `Dresseur` (`id_dresseur`),
   ADD CONSTRAINT `id_region_Arene` FOREIGN KEY (`id_region`) REFERENCES `Region` (`id_region`);
 
---
--- Constraints for table `Attaque`
---
 ALTER TABLE `Attaque`
   ADD CONSTRAINT `id_element_Attaque` FOREIGN KEY (`id_element`) REFERENCES `Element` (`id_element`);
 
---
--- Constraints for table `Combat`
---
 ALTER TABLE `Combat`
   ADD CONSTRAINT `id_competition_Combat` FOREIGN KEY (`id_competition`) REFERENCES `Competition` (`id_competition`);
 
---
--- Constraints for table `Competition`
---
 ALTER TABLE `Competition`
   ADD CONSTRAINT `id_arene_Competition` FOREIGN KEY (`id_arene`) REFERENCES `Arene` (`id_arene`),
   ADD CONSTRAINT `id_gagnant_Competition` FOREIGN KEY (`id_gagnant`) REFERENCES `Dresseur` (`id_dresseur`);
 
---
--- Constraints for table `Element`
---
 ALTER TABLE `Element`
   ADD CONSTRAINT `id_elem_faible_element` FOREIGN KEY (`id_elem_faible`) REFERENCES `Element` (`id_element`),
   ADD CONSTRAINT `id_elem_fort_element` FOREIGN KEY (`id_elem_resistant`) REFERENCES `Element` (`id_element`);
 
---
--- Constraints for table `Espece`
---
 ALTER TABLE `Espece`
   ADD CONSTRAINT `id_ancetre_Espece` FOREIGN KEY (`id_ancetre`) REFERENCES `Espece` (`id_espece`),
   ADD CONSTRAINT `id_element_Espece` FOREIGN KEY (`id_element`) REFERENCES `Element` (`id_element`),
   ADD CONSTRAINT `id_evolution_Espece` FOREIGN KEY (`id_evolution`) REFERENCES `Espece` (`id_espece`);
 
---
--- Constraints for table `Participe`
---
 ALTER TABLE `Participe`
   ADD CONSTRAINT `id_combat_Participe` FOREIGN KEY (`id_combat`) REFERENCES `Combat` (`id_combat`),
   ADD CONSTRAINT `id_dresseur1_Participe` FOREIGN KEY (`id_dresseur1`) REFERENCES `Dresseur` (`id_dresseur`),
@@ -659,21 +378,11 @@ ALTER TABLE `Participe`
   ADD CONSTRAINT `id_pokemon1_Partictipe` FOREIGN KEY (`id_pokemon1`) REFERENCES `Pokemon` (`id_pokemon`),
   ADD CONSTRAINT `id_pokemon2_Partictipe` FOREIGN KEY (`id_pokemon2`) REFERENCES `Pokemon` (`id_pokemon`);
 
---
--- Constraints for table `Pokemon`
---
 ALTER TABLE `Pokemon`
   ADD CONSTRAINT `id_dresseur_pokemon` FOREIGN KEY (`id_dresseur`) REFERENCES `Dresseur` (`id_dresseur`),
   ADD CONSTRAINT `id_espece_pokemon` FOREIGN KEY (`id_espece`) REFERENCES `Espece` (`id_espece`);
 
---
--- Constraints for table `Possede`
---
 ALTER TABLE `Possede`
   ADD CONSTRAINT `id_attaque_Possede` FOREIGN KEY (`id_attaque`) REFERENCES `Attaque` (`id_attaque`),
   ADD CONSTRAINT `id_pokemon_Possede` FOREIGN KEY (`id_pokemon`) REFERENCES `Pokemon` (`id_pokemon`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -27,10 +27,25 @@
 </competition>
 
 // DTD
-
+<!DOCTYPE note
+[
+<!ELEMENT competition (nom, arene, gagnant, recompense, debut, fin)>
+  <!ELEMENT nom (#PCDATA)>
+  <!ELEMENT arene (#PCDATA)>
+  <!ELEMENT gagnant (dresseur, combat)>
+    <!ELEMENT dresseur (#PCDATA)>
+    <!ELEMENT combat (dresseur1, dresseur2, pokemon1, pokemon2, date)>
+      <!ELEMENT dresseur1 (#PCDATA)>
+      <!ELEMENT dresseur1 (#PCDATA)>
+      <!ELEMENT pokemon1 (#PCDATA)>
+      <!ELEMENT pokemon2 (#PCDATA)>
+      <!ELEMENT date (#PCDATA)>
+  <!ELEMENT recompense (#PCDATA)>
+  <!ELEMENT debut (#PCDATA)>
+  <!ELEMENT fin (#PCDATA)>
+]>
 
 // JSON
-
 {
    "competition":{
       "nom":"Free 2020",
@@ -63,7 +78,7 @@
    }
 }
 
-// Espece
+// Espece //
 
 // XML
 <espece>
@@ -80,7 +95,19 @@
 </espece>
 
 // DTD
-
+<!DOCTYPE note
+[
+<!ELEMENT espece (nom, taille, poids, element, evolution, ancetre)>
+  <!ELEMENT nom (#PCDATA)>
+  <!ELEMENT taille (#PCDATA)>
+  <!ELEMENT poids (#PCDATA)>
+  <!ELEMENT element (nom_element, faiblesse, resistance)>
+    <!ELEMENT nom_element (#PCDATA)>
+    <!ELEMENT faiblesse (#PCDATA)>
+    <!ELEMENT resistance (#PCDATA)>
+  <!ELEMENT evolution (#PCDATA)>
+  <!ELEMENT ancetre (#PCDATA)>
+]>
 
 // JSON
 {
@@ -97,7 +124,7 @@
    }
 }
 
-// Pokemon
+// Pokemon //
 
 // XML
 <pokemon>
@@ -116,7 +143,17 @@
 </pokemon>
 
 // DTD
-
+<!DOCTYPE note
+[
+<!ELEMENT pokemon (nom, pv, espece, dresseur, attaques)>
+  <!ELEMENT nom (#PCDATA)>
+  <!ELEMENT pv (#PCDATA)>
+  <!ELEMENT espsece (#PCDATA)>
+  <!ELEMENT dresseur (#PCDATA)>
+  <!ELEMENT attaque (nom_attaque, type)>
+    <!ELEMENT nom_attaque (#PCDATA)>
+    <!ELEMENT type (#PCDATA)>
+]>
 
 // JSON
 {
@@ -140,13 +177,13 @@
    }
 }
 
-// XPATH 1: 
+// XPATH 1: //
 /competition/gagnant/combat[pokemon1="Kawaii" and pokemon2="LeBG"] 
 
-//JSON Path 1: 
+// JSON Path 1: 
 $.competition.gagnant.combat[?(@.pokemon1=='Kawaii' && @.pokemon2=='LeBG')]
 
-//=> Récupère le combat :
+// => Récupère le combat :
 <combat>
   <dresseur1>MKD</dresseur1>
   <dresseur2>Soreiyu</dresseur2>
@@ -155,14 +192,13 @@ $.competition.gagnant.combat[?(@.pokemon1=='Kawaii' && @.pokemon2=='LeBG')]
   <date>2020-05-05</date>
 </combat>
 
+// XPATH 2: //
+// combat[position()<3]
 
-//XPATH 2:
-//combat[position()<3]
-
-//JSON Path 2:
+// JSON Path 2:
 $..combat[:2]
 
-//=> Récupère les deux premiers combats
+// => Récupère les deux premiers combats
 <combat>
   <dresseur1>MKD</dresseur1>
   <dresseur2>Soreiyu</dresseur2>
@@ -178,13 +214,13 @@ $..combat[:2]
   <date>2020-05-05</date>
 </combat>
 
-//XPATH 3 (end-with fct in XPATH 2.0):
+// XPATH 3 (end-with fct in XPATH 2.0): //
 /competition/gagnant/combat[ends-with(date,'05')] 
 
-//JSON Path 3:
+// JSON Path 3:
 $.competition.gagnant.combat[?(@.date =~ /.*05/i)]
 
-//=> Récupère les combats dont la date finit par "05" :
+// => Récupère les combats dont la date finit par "05" :
 <combat>
   <dresseur1>MKD</dresseur1>
   <dresseur2>Soreiyu</dresseur2>
@@ -193,21 +229,20 @@ $.competition.gagnant.combat[?(@.date =~ /.*05/i)]
   <date>2020-05-05</date>
 </combat>
 
-//XPATH 4:
+// XPATH 4: //
 /pokemon/attaque[last()]/type
 
-//JSON Path 4:
+// JSON Path 4:
 $.pokemon.attaque[-1:].type
 
-//=> Récupère le type de la dernière attaque :
+// => Récupère le type de la dernière attaque :
 defensive
 
-
-//XPATH 5:
+// XPATH 5: //
 //attaque[type != "offensive"]/nom_attaque
 
-//JSON Path 5:
+// JSON Path 5:
 $..attaque[?(@.type != "offensive")].nom_attaque
 
-//=> Récupère le nom des attaques n'ayant pas le type "offensive" :
+// => Récupère le nom des attaques n'ayant pas le type "offensive" :
 Seduction

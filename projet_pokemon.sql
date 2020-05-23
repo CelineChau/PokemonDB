@@ -385,4 +385,9 @@ ALTER TABLE `Pokemon`
 ALTER TABLE `Possede`
   ADD CONSTRAINT `id_attaque_Possede` FOREIGN KEY (`id_attaque`) REFERENCES `Attaque` (`id_attaque`),
   ADD CONSTRAINT `id_pokemon_Possede` FOREIGN KEY (`id_pokemon`) REFERENCES `Pokemon` (`id_pokemon`);
+  
+ALTER TABLE `Dresseur` ADD UNIQUE(`nom_dresseur`);
+ALTER TABLE `Attaque` ADD UNIQUE(`nom_attaque`);
+ALTER TABLE `Pokemon` ADD UNIQUE(`nom_pokemon`);
+ALTER TABLE `Element` ADD UNIQUE(`nom_element`);
 COMMIT;
